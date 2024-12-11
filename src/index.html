@@ -40,18 +40,48 @@
     </style>
     <script>
         questions = {
-            easy: [
+            category: [
                 {
-                    question: 'EM QUE ANO JESUS CRISTO NASCEU?',
-                    answers: ['1959 DC', '1959 DC', '1959 DC', '1959 DC']
+                    level: [
+                        [
+                            {
+                                question: 'VERY EASY?',
+                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4']
+                            }
+                        ],
+                        [
+                            {
+                                question: 'EASY?',
+                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4']
+                            }
+                        ],
+                        [
+                            {
+                                question: 'MIDDLE?',
+                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4']
+                            }
+                        ],
+                        [
+                            {
+                                question: 'HARD?',
+                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4']
+                            }
+                        ],
+                        [
+                            {
+                                question: 'VERY HARD?',
+                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4']
+                            }
+                        ]
+                    ]
                 }
             ]
         }
         function move() {
             var audio = document.getElementById('effect');
+            const elem = document.getElementById("content");
             audio.play();
             let id = null;
-            const elem = document.getElementById("content");
             let marginLeft = -70;
             let opacity = 0;
             clearInterval(id);
@@ -75,14 +105,40 @@
             document.getElementById("answer4").innerText = '(4) ' + question.answers[3];
             move();
         }
+        let level = 0;
+        let category = 0;
         function start() {
-            setQuestion(questions.easy[0]);
+            setQuestion(questions.category[category].level[level][0]);
         }
-        //document.addEventListener('DOMContentLoaded', start, false);
+        document.addEventListener(
+            "keydown",
+            function (event) {
+                switch (event.key) {
+                    case '1':
+                        level = 0;
+                        break;
+                    case '2':
+                        level = 1;
+                        break;
+                    case '3':
+                        level = 2;
+                        break;
+                    case '4':
+                        level = 3;
+                        break;
+                    case '5':
+                        level = 4;
+                        break;
+                    case 's':
+                        start();
+                        break;
+                }
+            },
+        );
     </script>
 </head>
 
-<body style="margin: 0px; background-color: black;" onclick="start()">
+<body style="margin: 0px; background-color: black;">
     <img src="rsrc/background.png" class="background" />
     <div class="content" id="content">
         <div class="box question" id="question"></div>
