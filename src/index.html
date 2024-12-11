@@ -1,0 +1,91 @@
+<html>
+
+<head>
+    <style>
+        .background {
+            width: 67%;
+            position: absolute;
+            margin-left: 23%;
+            margin-top: -9%;
+            z-index: -1;
+            opacity: 50%;
+        }
+
+        .content {
+            color: white;
+            font-size: 40px;
+            font-family: sans-serif;
+            font-weight: bold;
+            width: 52%;
+            margin-left: -50%;
+            padding-top: 48px;
+        }
+
+        .box {
+            border-color: white;
+            border-radius: 10px;
+            border-style: solid;
+            padding: 5px;
+            margin-top: 8px;
+        }
+
+        .question {
+            background-color: #00006a;
+            height: 12%;
+        }
+
+        .answer {
+            background-color: #6a0000;
+        }
+    </style>
+    <script>
+        function move() {
+            let id = null;
+            const elem = document.getElementById("content");
+            let marginLeft = -50;
+            let opacity = 0;
+            clearInterval(id);
+            id = setInterval(frame, 20);
+            function frame() {
+                if (marginLeft == 31) {
+                    clearInterval(id);
+                } else {
+                    marginLeft++;
+                    if (opacity < 100) opacity+=2;
+                    elem.style.marginLeft = marginLeft + '%';
+                    elem.style.opacity = opacity + '%';
+                }
+            }
+        }
+        function setQuestion(question) {
+            document.getElementById("question").innerText = question.question;
+            document.getElementById("answer1").innerText = '(1) ' + question.answer1;
+            document.getElementById("answer2").innerText = '(2) ' + question.answer2;
+            document.getElementById("answer3").innerText = '(3) ' + question.answer3;
+            document.getElementById("answer4").innerText = '(4) ' + question.answer4;
+            move();
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            setQuestion({
+                question: 'EM QUE ANO JESUS CRISTO NASCEU?',
+                answer1: '1959 DC',
+                answer2: '1959 DC',
+                answer3: '1959 DC',
+                answer4: '1959 DC',
+            })
+        }, false);
+    </script>
+</head>
+
+<body style="margin: 0px; background-color: black;">
+    <img src="rsrc/background.png" class="background" />
+    <div class="content" id="content">
+        <div class="box question" id="question"></div>
+        <div class="box answer" id="answer1"></div>
+        <div class="box answer" id="answer2"></div>
+        <div class="box answer" id="answer3"></div>
+        <div class="box answer" id="answer4"></div>
+    </div>
+</body>
+
+</html>
