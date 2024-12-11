@@ -17,7 +17,7 @@
             font-family: sans-serif;
             font-weight: bold;
             width: 52%;
-            margin-left: -50%;
+            margin-left: -70%;
             padding-top: 48px;
         }
 
@@ -39,19 +39,29 @@
         }
     </style>
     <script>
+        questions = {
+            easy: [
+                {
+                    question: 'EM QUE ANO JESUS CRISTO NASCEU?',
+                    answers: ['1959 DC', '1959 DC', '1959 DC', '1959 DC']
+                }
+            ]
+        }
         function move() {
+            var audio = document.getElementById('effect');
+            audio.play();
             let id = null;
             const elem = document.getElementById("content");
-            let marginLeft = -50;
+            let marginLeft = -70;
             let opacity = 0;
             clearInterval(id);
-            id = setInterval(frame, 20);
+            id = setInterval(frame, 5);
             function frame() {
-                if (marginLeft == 31) {
+                if (marginLeft > 30) {
                     clearInterval(id);
                 } else {
-                    marginLeft++;
-                    if (opacity < 100) opacity+=2;
+                    marginLeft += 0.4;
+                    if (opacity < 100) opacity += 0.4;
                     elem.style.marginLeft = marginLeft + '%';
                     elem.style.opacity = opacity + '%';
                 }
@@ -59,25 +69,20 @@
         }
         function setQuestion(question) {
             document.getElementById("question").innerText = question.question;
-            document.getElementById("answer1").innerText = '(1) ' + question.answer1;
-            document.getElementById("answer2").innerText = '(2) ' + question.answer2;
-            document.getElementById("answer3").innerText = '(3) ' + question.answer3;
-            document.getElementById("answer4").innerText = '(4) ' + question.answer4;
+            document.getElementById("answer1").innerText = '(1) ' + question.answers[0];
+            document.getElementById("answer2").innerText = '(2) ' + question.answers[1];
+            document.getElementById("answer3").innerText = '(3) ' + question.answers[2];
+            document.getElementById("answer4").innerText = '(4) ' + question.answers[3];
             move();
         }
-        document.addEventListener('DOMContentLoaded', function () {
-            setQuestion({
-                question: 'EM QUE ANO JESUS CRISTO NASCEU?',
-                answer1: '1959 DC',
-                answer2: '1959 DC',
-                answer3: '1959 DC',
-                answer4: '1959 DC',
-            })
-        }, false);
+        function start() {
+            setQuestion(questions.easy[0]);
+        }
+        //document.addEventListener('DOMContentLoaded', start, false);
     </script>
 </head>
 
-<body style="margin: 0px; background-color: black;">
+<body style="margin: 0px; background-color: black;" onclick="start()">
     <img src="rsrc/background.png" class="background" />
     <div class="content" id="content">
         <div class="box question" id="question"></div>
@@ -86,6 +91,7 @@
         <div class="box answer" id="answer3"></div>
         <div class="box answer" id="answer4"></div>
     </div>
+    <audio id="effect" src="rsrc/effect.mp3"></audio>
 </body>
 
 </html>
