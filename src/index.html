@@ -39,6 +39,7 @@
         }
     </style>
     <script>
+        let currentQuestion = null;
         questions = {
             category: [
                 {
@@ -46,41 +47,46 @@
                         [
                             {
                                 question: 'VERY EASY?',
-                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4']
+                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4'],
+                                correct: 3
                             }
                         ],
                         [
                             {
                                 question: 'EASY?',
-                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4']
+                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4'],
+                                correct: 3
                             }
                         ],
                         [
                             {
                                 question: 'MIDDLE?',
-                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4']
+                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4'],
+                                correct: 3
                             }
                         ],
                         [
                             {
                                 question: 'HARD?',
-                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4']
+                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4'],
+                                correct: 3
                             }
                         ],
                         [
                             {
                                 question: 'VERY HARD?',
-                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4']
+                                answers: ['OPTION 1', 'OPTION 2', 'OPTION 3', 'OPTION 4'],
+                                correct: 3
                             }
                         ]
                     ]
                 }
             ]
         }
-        function move() {
+        function fadeIn() {
             var audio = document.getElementById('effect');
-            const elem = document.getElementById("content");
             audio.play();
+            const elem = document.getElementById("content");
             let id = null;
             let marginLeft = -70;
             let opacity = 0;
@@ -97,13 +103,29 @@
                 }
             }
         }
+        function fadeOut() {
+            const elem = document.getElementById("content");
+            let id = null;
+            let opacity = 100;
+            clearInterval(id);
+            id = setInterval(frame, 5);
+            function frame() {
+                if (opacity < 1) {
+                    clearInterval(id);
+                } else {
+                    opacity -= 0.4;
+                    elem.style.opacity = opacity + '%';
+                }
+            }
+        }
         function setQuestion(question) {
+            currentQuestion = question;
             document.getElementById("question").innerText = question.question;
             document.getElementById("answer1").innerText = '(1) ' + question.answers[0];
             document.getElementById("answer2").innerText = '(2) ' + question.answers[1];
             document.getElementById("answer3").innerText = '(3) ' + question.answers[2];
             document.getElementById("answer4").innerText = '(4) ' + question.answers[3];
-            move();
+            fadeIn();
         }
         let level = 0;
         let category = 0;
@@ -115,18 +137,31 @@
             function (event) {
                 switch (event.key) {
                     case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                        if (currentQuestion.correct == event.key) {
+                            var audio = document.getElementById('correct');
+                            audio.play();
+                        } else {
+                            var audio = document.getElementById('incorrect');
+                            audio.play();
+                        }
+                        fadeOut();
+                        break;
+                    case 'E':
                         level = 0;
                         break;
-                    case '2':
+                    case 'e':
                         level = 1;
                         break;
-                    case '3':
+                    case 'm':
                         level = 2;
                         break;
-                    case '4':
+                    case 'h':
                         level = 3;
                         break;
-                    case '5':
+                    case 'H':
                         level = 4;
                         break;
                     case 's':
@@ -148,6 +183,8 @@
         <div class="box answer" id="answer4"></div>
     </div>
     <audio id="effect" src="rsrc/effect.mp3"></audio>
+    <audio id="correct" src="rsrc/correct.mp3"></audio>
+    <audio id="incorrect" src="rsrc/incorrect.mp3"></audio>
 </body>
 
 </html>
