@@ -163,6 +163,14 @@
                         category = 2;
                         index = 0;
                         break;
+                    case 'f':
+                        if (document.fullscreenElement) {
+                            document.exitFullscreen();
+                        } else {
+                            if (document.body.requestFullscreen) {
+                                document.body.requestFullscreen();
+                            }
+                        } break;
                     case 's':
                         start();
                         break;
