@@ -24,6 +24,18 @@
     <script src="questions/youngs/hard.js"></script>
     <script src="questions/youngs/very_hard.js"></script>
 
+    <script src="questions/childrens/very_easy.js"></script>
+    <script src="questions/childrens/easy.js"></script>
+    <script src="questions/childrens/middle.js"></script>
+    <script src="questions/childrens/hard.js"></script>
+    <script src="questions/childrens/very_hard.js"></script>
+
+    <script src="questions/juniors/very_easy.js"></script>
+    <script src="questions/juniors/easy.js"></script>
+    <script src="questions/juniors/middle.js"></script>
+    <script src="questions/juniors/hard.js"></script>
+    <script src="questions/juniors/very_hard.js"></script>
+
     <script>
         questions.category.forEach(c => {
             c.level.forEach(l => {
@@ -161,6 +173,14 @@
                         break;
                     case 'y':
                         category = 2;
+                        index = 0;
+                        break;
+                    case 'c':
+                        category = 3;
+                        index = 0;
+                        break;
+                    case 'j':
+                        category = 4;
                         index = 0;
                         break;
                     case 'f':
